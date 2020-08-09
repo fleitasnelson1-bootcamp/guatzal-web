@@ -1,0 +1,22 @@
+h4 {
+	text-align: center;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+}
+
+label {
+	margin: 2px;
+}
+
+form {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 300px;
+	background-color: #E3F684;
+}
+
