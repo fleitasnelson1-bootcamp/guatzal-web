@@ -3,10 +3,20 @@ package dataBase;
 import java.sql.*;
 
 public class GuatzakDB {
+	
+	static {
+	    try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
+	
 	public static Connection conexion(boolean autoCommit) throws SQLException {
 			//Prueba de connexion
             // esta es la configuracion de la conexion a SQL Server
-            final String url = "jdbc:sqlserver://WILLIAM-PC\\SQLEXPRESS:1433;databaseName=Guatzak";
+            final String url = "jdbc:sqlserver://localhost:1433;databaseName=Guatzak";
 
             // Crea una coneccion
             final Connection con = DriverManager.getConnection(url,"sa","123");

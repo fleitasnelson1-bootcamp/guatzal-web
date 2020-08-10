@@ -43,3 +43,5 @@ create table Sala_usuario(
 	constraint fk_sa foreign key (Id_sala) references Sala(Id_sala),
 	constraint fk_us foreign key (Id_usuario) references Usuario(Id_user)
 )
+
+insert into Usuario values (1,'William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxFPmF9x0RG6riA0fW3WwK','$2a$10$ouWF2IVBpYBfzYwWyFgNW.')
