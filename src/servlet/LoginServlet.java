@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		try(Conector co = Conector.newInstance()){
 			
 			if(_loginservice.verify(co, request.getParameter("username"),request.getParameter("password"))) {
@@ -44,8 +45,6 @@ public class LoginServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			response.getWriter().print("Error");
 		}
 		
