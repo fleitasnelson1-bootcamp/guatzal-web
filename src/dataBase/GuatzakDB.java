@@ -5,13 +5,12 @@ import java.sql.*;
 public class GuatzakDB {
 	
 	static {
-	    try {
+		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  }
+			throw new Error("No se encontro el JAR");
+		} 
+	}
 	
 	public static Connection conexion(boolean autoCommit) throws SQLException {
 			//Prueba de connexion

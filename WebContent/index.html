@@ -35,12 +35,11 @@
 	async function sendData(){
 		//Obtengo la referencia al formulario del login.
 		let formData = new FormData( document.getElementById('login-form'));
-		
+
 		let response = await fetch(url, {
 			method: 'POST',
 			body: formData
 		});
-		
 		let result = await response.text();
 		alert(result);
 	}
