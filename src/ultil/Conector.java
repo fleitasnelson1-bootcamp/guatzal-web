@@ -15,7 +15,7 @@ public class Conector implements AutoCloseable{
 				_connection = GuatzakDB.conexion(false);
 			}
 		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
+			throw new Error("Error al iniciar el servidor: "+e.getStackTrace());
 		}
 		return _connection;
 		

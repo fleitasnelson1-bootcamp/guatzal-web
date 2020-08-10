@@ -4,6 +4,14 @@ import java.sql.*;
 
 public class GuatzakDB {
 	
+	static {
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		} catch (ClassNotFoundException e) {
+			throw new Error("No se encontro el JAR");
+		} 
+	}
+	
 	public static Connection conexion(boolean autoCommit) throws SQLException {
 			//Prueba de connexion
             // esta es la configuracion de la conexion a SQL Server

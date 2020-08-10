@@ -4,17 +4,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import dataBase.GuatzakDB;
+import dataBase.LoginData;
 import ultil.Conector;
 
 public class Testeo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		Conector co = Conector.newInstance();
+		LoginData data = new LoginData();
 		
-		try(Connection con = co.getConector()){
-			System.out.println("Funciona");
-		}
+		System.out.println(data.selectUser(new Conector(), "William"));
 		
 	}
 	

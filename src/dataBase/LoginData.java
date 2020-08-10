@@ -29,13 +29,13 @@ public class LoginData {
 		String[] password= {null,null};
 		try(Connection con = co.getConector()){
 			if(nick!=null) {
-				try(PreparedStatement pstmt = con.prepareStatement("Select Contraseña_user, Salt_user from Usuario where Nombre_user is ?")){
+				try(PreparedStatement pstmt = con.prepareStatement("Select Contraseña_user, Salt_user from Usuario where Nombre_user = ?")){
 					pstmt.setString(1, nick);
 					pstmt.executeQuery();
 					try (ResultSet rs = pstmt.executeQuery()) {
 						if (rs.next()) {
-							password[0] = rs.getString("Cotraseña_user");
-							password[1] = rs.getString("Salt_user");
+							password[0] = rs.getString(1);
+							password[1] = rs.getString(2);
 						}
 					}
 				}
