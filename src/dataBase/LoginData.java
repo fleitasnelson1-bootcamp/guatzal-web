@@ -11,11 +11,11 @@ public class LoginData {
 		try(Connection con = co.getConector()){
 			
 			if(nick!=null && password!=null && salt !=null) {
-				try(PreparedStatement pstm = con.prepareStatement("INSERT INTO Usuario(Nombre_user,Contraseña_user,Salt_user) values (?,?,?)", new String[] {"Id_user"})){
-					pstm.setString(1, nick);
-					pstm.setString(2, password);
-					pstm.setString(3, salt);
-					pstm.executeQuery();
+				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Usuario(Nombre_user,Contraseña_user,Salt_user) values (?,?,?)", new String[] {"Id_user"})){
+					pstmt.setString(1, nick);
+					pstmt.setString(2, password);
+					pstmt.setString(3, salt);
+					pstmt.executeQuery();
 				}
 			}
 			
@@ -23,6 +23,28 @@ public class LoginData {
 			throw new Error("Error al iniciar el servidor");
 		}
 		
+	}
+	
+	public String[] selectUser(Conector co, String nick) {
+		String[] password= {null,null};
+		try(Connection con = co.getConector()){
+			if(nick!=null) {
+				try(PreparedStatement pstmt = con.prepareStatement("Select Contraseña_user, Salt_user from Usuario where Nombre_user is ?")){
+					pstmt.setString(1, nick);
+					pstmt.executeQuery();
+					try (ResultSet rs = pstmt.executeQuery()) {
+						if (rs.next()) {
+							password[0] = rs.getString("Cotraseña_user");
+							password[1] = rs.getString("Salt_user");
+						}
+					}
+				}
+			}
+			
+		}catch (SQLException e) {
+			throw new Error("Error al iniciar el servidor");
+		}
+		return password;
 	}
 	
 }

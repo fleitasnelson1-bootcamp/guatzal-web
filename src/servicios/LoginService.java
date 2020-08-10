@@ -1,7 +1,5 @@
 package servicios;
 
-import java.security.SecureRandom;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import dataBase.LoginData;
@@ -24,6 +22,16 @@ public class LoginService {
 		};
 	
 		
+	}
+	
+	public boolean verify(Conector co, String nombre, String contraseña) {
+		String[] pass = _login.selectUser(co, nombre);
+		
+		if(pass[0].equals(BCrypt.hashpw(contraseña,pass[1]))) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }
