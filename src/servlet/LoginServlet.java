@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try(Conector co = new Conector()){
+		try(Conector co = Conector.newInstance()){
 			
 			if(_loginservice.verify(co, request.getParameter("username"),request.getParameter("password"))) {
 				response.getWriter().print("Verificado");

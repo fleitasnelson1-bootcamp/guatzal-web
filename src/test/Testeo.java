@@ -10,9 +10,11 @@ public class Testeo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		Conector co = new Conector();
+		Conector co = Conector.newInstance();
 		
-		Connection con = GuatzakDB.conexion(false);
+		try(Connection con = co.getConector()){
+			System.out.println("Funciona");
+		}
 		
 	}
 	

@@ -20,6 +20,10 @@ public class Conector implements AutoCloseable{
 		return _connection;
 		
 	}
+	
+	public static Conector newInstance() {
+		return new Conector();
+	}
 
 	public void close() throws Exception {
 		try {
