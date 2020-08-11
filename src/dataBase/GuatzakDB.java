@@ -16,7 +16,7 @@ public class GuatzakDB {
 			//Prueba de connexion
             // esta es la configuracion de la conexion a SQL Server
             final String url = "jdbc:sqlserver://localhost:1433;databaseName=Guatzak";
-
+            
             // Crea una coneccion
             final Connection con = DriverManager.getConnection(url,"sa","123");
             con.setAutoCommit(autoCommit);
