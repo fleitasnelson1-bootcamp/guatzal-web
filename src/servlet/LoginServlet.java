@@ -37,9 +37,11 @@ public class LoginServlet extends HttpServlet {
 		try(Conector co = Conector.newInstance()){
 			
 			if(_loginservice.verify(co, request.getParameter("username"),request.getParameter("password"))) {
+				System.out.println("Verificado");
 				response.getWriter().print("Verificado");
 			}else {
 				response.getWriter().print("Usuario o contraseña incorrectas");
+				System.out.println("Incorrecto");
 			}
 			
 			
