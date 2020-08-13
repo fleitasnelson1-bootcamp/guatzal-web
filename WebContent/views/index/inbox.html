@@ -16,14 +16,14 @@
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
 			<div class="container overflow-auto" style="height: 90%">
 				<ul id="contacts">
-					<li id="1">
-						
+					<li id="1" onclick="select_contact(this)">
+						Usuario 1
 					</li>
-					<li id="2">
-						
+					<li id="2" onclick="select_contact(this)">
+						Usuario 2
 					</li>
-					<li id="3">
-						
+					<li id="3" onclick="select_contact(this)">
+						Usuario 3
 					</li>
 				</ul>
 			</div>
@@ -31,7 +31,9 @@
 		<section class="col-md-9" style="height: 100%;">
 			<div style="height: 85%; background-color: yellow">
 				<div class="col-md-12" style="height: 5%">
-					Usuario
+					<p id="user_chat">
+						
+					</p>
 				</div>
 				<div class="container overflow-auto" style="height: 95%; background-color: white">
 					<ul class="inbox">
@@ -91,13 +93,13 @@
 				</div>
 			</div>
 			<div style="height: 15%;">
-				<form class="message-form">
+				<form class="message-form" method="POST" action="#">
 					<span class="col-11" style="height: 70%">
 						<textarea name="message" placeholder="Mensaje..."></textarea>
 						<input type="text" name="user_id" hidden id="user_id">
 					</span>
 					<span class="col-1">
-						<button>Enviar</button>
+						<button type="submit">Enviar</button>
 					</span>
 				</form>
 			</div>
@@ -105,3 +107,10 @@
 	</div>
 </body>
 </html>
+
+<script type="text/javascript">
+	function select_contact(elem){
+		document.getElementById('user_chat').innerHTML= elem.textContent;
+		document.getElementById('user_id').value = elem.id;
+	}
+</script>
