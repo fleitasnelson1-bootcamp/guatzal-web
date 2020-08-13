@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="../../css/inbox.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -11,17 +11,26 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<title>Guatzak Inbox</title>
 </head>
-<body style="height: 600px">
+<body style="height: 650px">
 	<div class="row" style="height: 100%; padding: 10px; background-color: grey">
 		<section class="col-md-4" style="height: 100%; background-color: aqua">
 			
 		</section>
-		<section class="col-md-8" style="height: 100%; background-color: yellow">
-			<div class="col-md-12" style="height: 85%">
-				
+		<section class="col-md-8" style="height: 100%;">
+			<div class="col-md-12" style="height: 85%; background-color: yellow">
+				<div class="col-md-12" style="height: 5%">
+					Usuario
+				</div>
+				<div class="container overflow-auto" style="height: 95%; background-color: white">
+					<ul style="width: 100%">
+						<li class="received">Mensaje recibido</li>
+						<li class="received">Mensaje recibido</li>
+						<li class="sent">Mensaje enviado</li>
+					</ul>
+				</div>
 			</div>
-			<div class="row fixed-relative-bottom" style="height: 15%">
-				<div class="col-md-11">
+			<div class="row" style="height: 15%">
+				<div class="col-md-11" style="width: 100%;">
 					<textarea name="message" style="width: 100%; height: 100%; resize: none;"></textarea>
 				</div>
 				<div class="col-md-1">

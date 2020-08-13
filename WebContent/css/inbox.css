@@ -1,0 +1,18 @@
+
+
+
+.sent, .received {
+	list-style: none;
+	width: 70%;
+	margin: 5px;
+}
+
+.sent{
+	float: right;
+	text-align: right;
+	background-color: yellow;
+}
+
+.received{
+	background-color: aqua;
+}
