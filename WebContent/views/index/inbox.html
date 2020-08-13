@@ -14,7 +14,19 @@
 <body style="height: 650px">
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
-			
+			<div class="container overflow-auto" style="height: 90%">
+				<ul id="contacts">
+					<li id="1">
+						
+					</li>
+					<li id="2">
+						
+					</li>
+					<li id="3">
+						
+					</li>
+				</ul>
+			</div>
 		</section>
 		<section class="col-md-9" style="height: 100%;">
 			<div style="height: 85%; background-color: yellow">
@@ -78,10 +90,11 @@
 					</ul>
 				</div>
 			</div>
-			<div style="height: 15%; background-color: blue;">
+			<div style="height: 15%;">
 				<form class="message-form">
-					<span class="col-11">
+					<span class="col-11" style="height: 70%">
 						<textarea name="message" placeholder="Mensaje..."></textarea>
+						<input type="text" name="user_id" hidden id="user_id">
 					</span>
 					<span class="col-1">
 						<button>Enviar</button>
