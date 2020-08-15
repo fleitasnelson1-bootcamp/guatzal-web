@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import ultil.Conector;
+import ultil.Sala;
 
 public class DAOdata {
 
@@ -70,5 +72,23 @@ public class DAOdata {
 		return 0;
 	}
 	
-	public 
+	public ArrayList<Sala> getSalas(Conector co,int id){
+		ArrayList<Sala> salas = new ArrayList<>();
+		try(Connection con = co.getConector()){
+			if(id > 0) {
+				try(PreparedStatement pstmt = con.prepareStatement("exec get_salas ?")){
+					pstmt.setInt(1, id);
+					try (ResultSet rs = pstmt.executeQuery()) {
+						while (rs.next()) {
+							salas.add(new Sala(rs.getInt(1),rs.getInt(2),rs.getString(3)));
+						}
+					}
+				}
+			}
+			
+		}catch (SQLException e) {
+			throw new Error("Error al iniciar el servidor");
+		}
+		return salas;
+	}
 }
