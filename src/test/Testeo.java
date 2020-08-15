@@ -11,9 +11,9 @@ public class Testeo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		LoginData data = new LoginData();
+		GuatzakDB db = new GuatzakDB();
 		
-		System.out.println(data.selectUser(new Conector(), "William"));
+		db.conexion(false);
 		
 	}
 	

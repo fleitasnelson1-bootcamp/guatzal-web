@@ -19,7 +19,7 @@ create table Tipo_sala(
 create table Sala(
 	Id_sala int,
 	Id_tipo int,
-	Fecha datetime,
+	Nombre_sala varchar(100),
 	constraint pk_sal primary key (Id_sala),
 	constraint fk_ti foreign key (Id_tipo) references Tipo_sala(Id_tipo)
 )
@@ -45,3 +45,30 @@ create table Sala_usuario(
 )
 
 insert into Usuario values (1,'William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxFPmF9x0RG6riA0fW3WwK','$2a$10$ouWF2IVBpYBfzYwWyFgNW.')
+
+select *
+from Sala S
+join Sala_usuario U
+on S.Id_sala = U.Id_sala
+where U.Id_usuario = 'Algo';
+
+alter procedure get_salas
+@id int
+as
+	begin tran
+	select *
+	from Sala S
+	join Sala_usuario U
+	on S.Id_sala = U.Id_sala
+	where U.Id_usuario = @id;
+	If @@Error<>0 
+	BEGIN
+	PRINT 'Ha ecorrido un error'
+	--Se lo comunicamos al usuario y deshacemos la transacción
+	--todo volverá a estar como si nada hubiera ocurrido
+	ROLLBACK TRAN
+	END
+	commit tran
+go
+
+exec get_salas 4431587
