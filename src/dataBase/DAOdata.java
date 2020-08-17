@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ultil.Conector;
+import ultil.Mensaje;
 import ultil.Sala;
 
 public class DAOdata {
@@ -90,5 +91,25 @@ public class DAOdata {
 			throw new Error("Error al iniciar el servidor");
 		}
 		return salas;
+	}
+	
+	public ArrayList<Mensaje> getMensajes(Conector co, int sala){
+		ArrayList<Mensaje> mensajes = new ArrayList<>();
+		try(Connection con = co.getConector()){
+			if(sala > 0) {
+				try(PreparedStatement pstmt = con.prepareStatement("exec get_mensajes ?")){
+					pstmt.setInt(1, sala);
+					try (ResultSet rs = pstmt.executeQuery()) {
+						while (rs.next()) {
+							mensajes.add(new Mensaje(rs.getString(1),rs.getDate(2),rs.getString(3)));
+						}
+					}
+				}
+			}
+			
+		}catch (SQLException e) {
+			throw new Error("Error al iniciar el servidor");
+		}
+		return mensajes;
 	}
 }

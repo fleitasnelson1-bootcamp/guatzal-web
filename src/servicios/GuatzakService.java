@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dataBase.DAOdata;
 import ultil.Conector;
+import ultil.Mensaje;
 import ultil.Sala;
 
 public class GuatzakService {
@@ -30,5 +31,10 @@ public class GuatzakService {
 		
 	}
 	
+	public ArrayList<Mensaje> getMensajes(Conector co, int idSala){
+		
+		return _data.getMensajes(co, idSala);
+		
+	}
 	
 }
