@@ -4,9 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dataBase.DAOdata;
-import ultil.Conector;
-import ultil.Mensaje;
-import ultil.Sala;
+import util.Conector;
+import util.Mensaje;
+import util.Sala;
+import util.User;
 
 public class GuatzakService {
 
@@ -39,8 +40,13 @@ public class GuatzakService {
 		
 	}
 	
-	public void crearSala(Conector co,int tipo, String nombre) {
-		_data.agregarSala(co, tipo, nombre);
+	public void crearSala(Conector co,int tipo, String nombre, ArrayList<User> miembros) {
+		int id_Sala=_data.agregarSala(co, tipo, nombre);
+		_data.agregarASala(co, id_Sala, miembros);
 	}
 	
+	
+	public ArrayList<User> getContactos(Conector co,int id_user){
+		return _data.getContactos(co, id_user);
+	}
 }

@@ -1,19 +1,24 @@
 package test;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dataBase.GuatzakDB;
 import dataBase.LoginData;
-import ultil.Conector;
+import servicios.GuatzakService;
+import util.Conector;
 
 public class Testeo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		GuatzakDB db = new GuatzakDB();
+		GuatzakService gs = new GuatzakService();
+		Conector co = Conector.newInstance();
+
 		
-		db.conexion(false);
+		gs.crearSala(co, 1, "Testeando");
 		
 	}
 	

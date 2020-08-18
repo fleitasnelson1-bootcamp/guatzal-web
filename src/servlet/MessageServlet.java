@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import servicios.GuatzakService;
-import ultil.Conector;
+import util.Conector;
 
 /**
  * Servlet implementation class MessageServlet
@@ -49,7 +49,7 @@ public class MessageServlet extends HttpServlet {
 		
 		try( Conector co = Conector.newInstance() ){
 			int userId = Integer.parseInt(request.getParameter(UID_PARAM));
-			int chatId = Integer.parseInt(request.getParameter(CHATID_PARAM));
+			int chatId = 19;//Integer.parseInt(request.getParameter(CHATID_PARAM));
 			String message = request.getParameter(MSG_PARAM);
 			msgService.enviarMensaje(co, userId,chatId, message);
 			//Si tuvo exito. Envio un status confirmando que se creo un recurso.

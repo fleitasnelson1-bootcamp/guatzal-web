@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import servicios.LoginService;
-import ultil.Conector;
+import util.Conector;
 
 /**
  * Servlet implementation class loginServlet

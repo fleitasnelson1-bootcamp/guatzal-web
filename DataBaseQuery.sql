@@ -3,7 +3,7 @@ go
 use Guatzak
 
 create table Usuario(
-	Id_user int,
+	Id_user int IDENTITY(1,1),
 	Nombre_user varchar(50),
 	Contraseña_user varchar(100),
 	Salt_user varchar(30),
@@ -17,7 +17,7 @@ create table Tipo_sala(
 )
 
 create table Sala(
-	Id_sala int,
+	Id_sala int IDENTITY(1,1),
 	Id_tipo int,
 	Nombre_sala varchar(100),
 	constraint pk_sal primary key (Id_sala),
@@ -25,7 +25,7 @@ create table Sala(
 )
 
 create table Mensaje(
-	Id_men int,
+	Id_men int IDENTITY(1,1),
 	Id_user int,
 	Id_sala int,
 	Mensaje varchar(300),
@@ -36,7 +36,7 @@ create table Mensaje(
 )
 
 create table Sala_usuario(
-	Id_su int,
+	Id_su int IDENTITY(1,1),
 	Id_sala int,
 	Id_usuario int,
 	constraint pk_su primary key (Id_su),
@@ -44,13 +44,7 @@ create table Sala_usuario(
 	constraint fk_us foreign key (Id_usuario) references Usuario(Id_user)
 )
 
-insert into Usuario values (1,'William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxFPmF9x0RG6riA0fW3WwK','$2a$10$ouWF2IVBpYBfzYwWyFgNW.')
 
-select *
-from Sala S
-join Sala_usuario U
-on S.Id_sala = U.Id_sala
-where U.Id_usuario = 'Algo';
 
 create procedure get_salas
 @id int
@@ -92,4 +86,22 @@ as
 	commit tran
 go
 
-exec get_mensajes 1
+exec get_mensajes 19
+
+
+insert into Usuario values ('William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxFPmF9x0RG6riA0fW3WwK','$2a$10$ouWF2IVBpYBfzYwWyFgNW.')
+
+insert into Tipo_sala values (1 , 'Chat')
+insert into Tipo_sala values (2 , 'Grupo')
+
+insert into Sala values (1,'Testeo 2')
+
+insert into Sala_usuario values (1,1)
+
+select * from Usuario
+select * from Sala
+
+delete from sala
+
+insert into Mensaje values (1,19,'Hola',GETDATE())
+SELECT * FROM Mensaje
