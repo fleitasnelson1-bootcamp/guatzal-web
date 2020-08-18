@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -43,11 +45,13 @@ public class MessageServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		final String MSG_PARAM = "message";
 		final String UID_PARAM = "user_id";
+		final String CHATID_PARAM = "chat_id";
 		
 		try( Conector co = Conector.newInstance() ){
 			int userId = Integer.parseInt(request.getParameter(UID_PARAM));
+			int chatId = Integer.parseInt(request.getParameter(CHATID_PARAM));
 			String message = request.getParameter(MSG_PARAM);
-			msgService.enviarMensaje(co, userId, id_sala, message);
+			msgService.enviarMensaje(co, userId,chatId, message);
 			//Si tuvo exito. Envio un status confirmando que se creo un recurso.
 			response.setStatus(response.SC_CREATED);
 		}catch(Exception e) {
