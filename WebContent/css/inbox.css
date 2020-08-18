@@ -1,0 +1,69 @@
+.main {
+	overflow-y: visible;
+}
+
+.inbox {
+	width: 100%;
+}
+
+.inbox li {
+	display: flex;
+	width: 100%;
+	list-style: none;
+	margin: 10px;
+}
+
+.inbox li div {
+	display: inline-block;
+	width: auto;
+	max-width: 70%;
+	height: auto;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.inbox li div p{
+	text-align: justify;
+}
+
+.inbox .received {
+	justify-content: flex-start;
+}
+
+.received div {
+	background-color: aqua;
+}
+
+.inbox .sent {
+	justify-content: flex-end;
+}
+
+.sent div {
+	background-color: yellow;
+}
+
+.message-form {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.message-form span {
+	display: inline-block;
+}
+
+.message-form textarea{
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	display: block; resize: none;
+}
+
+#contacts li{
+	list-style: none;
+	margin: 0px;
+}
+
+#contacts li:hover {
+	background-color: yellow;
+}
