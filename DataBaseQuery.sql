@@ -52,7 +52,7 @@ join Sala_usuario U
 on S.Id_sala = U.Id_sala
 where U.Id_usuario = 'Algo';
 
-alter procedure get_salas
+create procedure get_salas
 @id int
 as
 	begin tran
@@ -72,3 +72,24 @@ as
 go
 
 exec get_salas 4431587
+
+create procedure get_mensajes
+@sala int
+as
+	begin tran
+	select U.Nombre_user, M.Fecha, M.Mensaje
+	from Mensaje M
+	join Usuario U
+	on U.Id_user = M.Id_user
+	where M.Id_sala = @sala
+	If @@Error<>0 
+	BEGIN
+	PRINT 'Ha ecorrido un error'
+	--Se lo comunicamos al usuario y deshacemos la transacción
+	--todo volverá a estar como si nada hubiera ocurrido
+	ROLLBACK TRAN
+	END
+	commit tran
+go
+
+exec get_mensajes 1

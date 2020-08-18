@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dataBase.DAOdata;
 import ultil.Conector;
+import ultil.Mensaje;
 import ultil.Sala;
 
 public class GuatzakService {
@@ -18,6 +19,7 @@ public class GuatzakService {
 			throw new Error(e.getMessage());
 		}
 		
+		_data.enviar(co, id, id_sala, mensaje, new java.sql.Date(8));	
 		
 	}
 	
@@ -31,5 +33,14 @@ public class GuatzakService {
 		
 	}
 	
+	public ArrayList<Mensaje> getMensajes(Conector co, int idSala){
+		
+		return _data.getMensajes(co, idSala);
+		
+	}
+	
+	public void crearSala(Conector co,int tipo, String nombre) {
+		_data.agregarSala(co, tipo, nombre);
+	}
 	
 }
