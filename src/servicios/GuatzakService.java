@@ -12,12 +12,8 @@ public class GuatzakService {
 	private final DAOdata _data = new DAOdata();
 	
 	public void enviarMensaje(Conector co, int id, int id_sala,String mensaje) {
-		try {
-			_data.enviar(co, id, id_sala, mensaje, new java.sql.Date(8));
-		}finally {
-			
-		}
 		
+		_data.enviar(co, id, id_sala, mensaje, new java.sql.Date(8));	
 		
 	}
 	
@@ -35,6 +31,10 @@ public class GuatzakService {
 		
 		return _data.getMensajes(co, idSala);
 		
+	}
+	
+	public void crearSala(Conector co,int tipo, String nombre) {
+		_data.agregarSala(co, tipo, nombre);
 	}
 	
 }

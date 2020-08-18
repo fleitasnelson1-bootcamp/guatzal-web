@@ -112,4 +112,22 @@ public class DAOdata {
 		}
 		return mensajes;
 	}
+	
+	public void agregarSala(Conector co,int tipo, String nombre) {
+		
+		try(Connection con = co.getConector()){
+			
+			if(nombre!=null && tipo != 0 ) {
+				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Sala(Id_tipo,Nombre_sala) values (?,?)", new String[] {"Id_user"})){
+					pstmt.setInt(1, tipo);
+					pstmt.setString(2, nombre);
+					pstmt.executeQuery();
+				}
+			}
+			
+		}catch (SQLException e) {
+			throw new Error("Error al iniciar el servidor");
+		}
+		
+	}
 }
