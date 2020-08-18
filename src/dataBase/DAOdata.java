@@ -22,7 +22,8 @@ public class DAOdata {
 					pstmt.setInt(2, sala);
 					pstmt.setString(3, mensaje);
 					pstmt.setDate(4, fecha);
-					pstmt.executeQuery();
+					pstmt.executeUpdate();
+					co.commit();
 				}
 			}
 			
@@ -118,10 +119,11 @@ public class DAOdata {
 		try(Connection con = co.getConector()){
 			
 			if(nombre!=null && tipo != 0 ) {
-				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Sala(Id_tipo,Nombre_sala) values (?,?)", new String[] {"Id_user"})){
+				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Sala(Id_tipo,Nombre_sala) values (?,?)", new String[] {"Id_sala"})){
 					pstmt.setInt(1, tipo);
 					pstmt.setString(2, nombre);
 					pstmt.executeQuery();
+					co.commit();
 				}
 			}
 			
