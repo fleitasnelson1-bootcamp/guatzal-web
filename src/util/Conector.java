@@ -1,4 +1,4 @@
-package ultil;
+package util;
 
 import java.sql.*;
 import dataBase.GuatzakDB;
@@ -8,7 +8,7 @@ public class Conector implements AutoCloseable{
 	
 	private Connection _connection;
 	
-	public Connection getConector() {
+	public Connection getConector()  throws SQLException{
 		
 		try {
 			if(null == _connection) {
@@ -35,9 +35,9 @@ public class Conector implements AutoCloseable{
 		}
 	}
 	
-	public void commit() {
+	public void commit()  throws SQLException{
 		try {
-			_connection.commit();;
+			_connection.commit();
 		} catch (SQLException e) {
 			throw new Error("Error al commit");
 		}

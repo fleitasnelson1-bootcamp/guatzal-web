@@ -2,7 +2,7 @@ package dataBase;
 
 import java.sql.*;
 
-import ultil.Conector;
+import util.Conector;
 
 public class LoginData {
 	//inspirado en el video 52

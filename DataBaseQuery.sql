@@ -86,7 +86,7 @@ as
 	commit tran
 go
 
-exec get_mensajes 1
+exec get_mensajes 19
 
 
 insert into Usuario values ('William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxFPmF9x0RG6riA0fW3WwK','$2a$10$ouWF2IVBpYBfzYwWyFgNW.')
@@ -94,9 +94,14 @@ insert into Usuario values ('William','$2a$10$ouWF2IVBpYBfzYwWyFgNW.hroNrKPoXZxF
 insert into Tipo_sala values (1 , 'Chat')
 insert into Tipo_sala values (2 , 'Grupo')
 
-insert into Sala values (1,'TesteoX2')
+insert into Sala values (1,'Testeo 2')
+
+insert into Sala_usuario values (1,1)
 
 select * from Usuario
 select * from Sala
 
 delete from sala
+
+insert into Mensaje values (1,19,'Hola',GETDATE())
+SELECT * FROM Mensaje

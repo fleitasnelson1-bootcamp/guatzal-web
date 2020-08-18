@@ -8,7 +8,7 @@ import java.sql.Statement;
 import dataBase.GuatzakDB;
 import dataBase.LoginData;
 import servicios.GuatzakService;
-import ultil.Conector;
+import util.Conector;
 
 public class Testeo {
 

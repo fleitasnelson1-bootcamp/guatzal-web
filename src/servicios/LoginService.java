@@ -3,7 +3,7 @@ package servicios;
 import org.mindrot.jbcrypt.BCrypt;
 
 import dataBase.LoginData;
-import ultil.Conector;
+import util.Conector;
 
 public class LoginService {
 
