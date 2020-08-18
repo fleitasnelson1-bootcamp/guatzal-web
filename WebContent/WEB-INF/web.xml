@@ -19,6 +19,15 @@
 		<url-pattern>/LoginServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>MessageServlet</servlet-name>
+		<servlet-class>servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MessageServlet</servlet-name>
+		<url-pattern>/MessageServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

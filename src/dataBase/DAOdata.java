@@ -12,7 +12,7 @@ import ultil.Sala;
 
 public class DAOdata {
 
-	public void enviar(Conector co,int id,int sala, String mensaje, Date fecha) {
+	public void enviar(Conector co,int id,int sala, String mensaje, Date fecha) throws SQLException{
 		try(Connection con = co.getConector()){
 			
 			if(mensaje!=null) {
@@ -26,7 +26,7 @@ public class DAOdata {
 			}
 			
 		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
+			throw new Error(e.getMessage());
 		}
 	}
 	

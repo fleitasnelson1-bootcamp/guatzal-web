@@ -31,9 +31,7 @@
 		<section class="col-md-9" style="height: 100%;">
 			<div style="height: 85%; background-color: yellow">
 				<div class="col-md-12" style="height: 5%">
-					<p id="user_chat">
-						
-					</p>
+					<p id="user_chat"></p>
 				</div>
 				<div class="container overflow-auto" style="height: 95%; background-color: white">
 					<ul class="inbox">
@@ -93,7 +91,7 @@
 				</div>
 			</div>
 			<div style="height: 15%;">
-				<form class="message-form" method="POST" action="#">
+				<form class="message-form" method="POST" action="#" onsubmit="sendMessage(this)">
 					<span class="col-11" style="height: 70%">
 						<textarea name="message" placeholder="Mensaje..."></textarea>
 						<input type="text" name="user_id" hidden id="user_id">
@@ -112,5 +110,34 @@
 	function select_contact(elem){
 		document.getElementById('user_chat').innerHTML= elem.textContent;
 		document.getElementById('user_id').value = elem.id;
+	}
+
+	function paintSentMessage(message){
+
+		let tag = [];
+		
+		tag.push("<li class=\"sent\">");
+			tag.push("<div>");
+				tag.push("<p>");
+					tag.push("hora - fecha");
+				tag.push("</p>");
+				tag.push("<p>");
+					tag.push(message);
+				tag.push("</p>")
+			tag.push("</div>");
+		tag.push("</li>");
+
+		document.getElementById('user_chat').innerHTML = tag.join(" ");
+	}
+
+	async function sendMessage(form){
+
+		let url = 'http://localhost:8080/GuatzakWeb/message';
+
+		let formData = new FormData(form);
+
+		paintSentMessage(formData.get("message"));
+
+		
 	}
 </script>
