@@ -2,9 +2,12 @@ package servicios;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
 import dataBase.DAOdata;
@@ -30,7 +33,7 @@ public class GuatzakService {
 		return _data.getIdUser(co, user);
 	}
 	
-	public ArrayList<Sala> getSalas(Conector co, int id){
+	public ArrayList<Sala> getSalas(Conector co, int id) throws SQLException{
 		
 		return _data.getSalas(co, id);
 		
@@ -54,21 +57,22 @@ public class GuatzakService {
 	
 	public JsonArray getSalasJson(Conector co, int id) throws SQLException {
 		try {
-			ArrayList<Sala> salas = _data.getSalas(co, id);
-			JsonArray salasJson = Json.createArrayBuilder().build();
-			salas.forEach(sala -> {
-				//Creo un json que quiero enviar. 
-				JsonObject salaJson = Json.createObjectBuilder()
-						.add("chat_id", sala.get_id())
-						.add("chat_name", sala.get_nombre())
-						.build();
-				//Cargo cada json creado en el array.
-				salasJson.add(salaJson);
-			});
-			return salasJson;
+			//Para crear un array de objetos json.
+			JsonArrayBuilder builder = Json.createArrayBuilder();
+			//Creo una lista de objetos json. Luego recorro y agrego cada uno al builder.
+			_data.getSalas(co, id).stream()
+					.map((sala) -> Json.createObjectBuilder()
+							.add("id", sala.get_id())
+							.add("name", sala.get_nombre())
+							.build() )
+					.collect(Collectors.toList())
+					.forEach((sala) -> builder.add(sala));
+			
+			return builder.build();
 		}
 		catch(SQLException e) {
 			throw new SQLException(e.getMessage());
 		}
 	}
+	
 }
