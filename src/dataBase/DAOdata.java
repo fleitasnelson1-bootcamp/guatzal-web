@@ -15,22 +15,21 @@ import util.User;
 
 public class DAOdata {
 
-	public void enviar(Conector co,int id,int sala, String mensaje, Date fecha) throws SQLException{
+	public void enviar(Conector co,int id,int sala, String mensaje) throws SQLException{
 		try(Connection con = co.getConector()){
 			
 			if(mensaje!=null) {
-				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Mensaje(Id_user, Id_sala, Mensaje, Fecha) values (?,?,?,?)", new String[] {"Id_men"})){
+				try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO Mensaje(Id_user, Id_sala, Mensaje, Fecha) values (?,?,?,getDate())", new String[] {"Id_men"})){
 					pstmt.setInt(1, id);
 					pstmt.setInt(2, sala);
 					pstmt.setString(3, mensaje);
-					pstmt.setDate(4, fecha);
 					pstmt.executeUpdate();
 					con.commit();
 				}
 			}
 			
 		}catch (SQLException e) {
-			throw new Error("Error al enviar el mensaje");
+			throw new Error(e.getMessage());
 		}
 	}
 	

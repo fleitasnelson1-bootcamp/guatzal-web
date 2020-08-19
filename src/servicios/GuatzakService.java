@@ -19,12 +19,10 @@ public class GuatzakService {
 	
 	public void enviarMensaje(Conector co, int id, int id_sala,String mensaje) throws SQLException {
 		try {
-			_data.enviar(co, id, id_sala, mensaje, new java.sql.Date(8));
+			_data.enviar(co, id, id_sala, mensaje);
 		}catch(SQLException e) {
 			throw new Error(e.getMessage());
 		}
-		
-		_data.enviar(co, id, id_sala, mensaje, new java.sql.Date(8));	
 		
 	}
 	

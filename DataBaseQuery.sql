@@ -101,7 +101,7 @@ insert into Sala_usuario values (1,1)
 select * from Usuario
 select * from Sala
 
-delete from sala
+delete from Mensaje
 
 insert into Mensaje values (1,19,'Hola',GETDATE())
 SELECT * FROM Mensaje
