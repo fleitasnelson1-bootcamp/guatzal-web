@@ -1,12 +1,7 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import dataBase.GuatzakDB;
-import dataBase.LoginData;
 import servicios.GuatzakService;
 import util.Conector;
 
@@ -16,9 +11,9 @@ public class Testeo {
 		
 		GuatzakService gs = new GuatzakService();
 		Conector co = Conector.newInstance();
-
+		String mensaje = "test test testx2";
 		
-		gs.crearSala(co, 1, "Testeando");
+		gs.enviarMensaje(co, 1,19, mensaje);
 		
 	}
 	
