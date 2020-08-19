@@ -14,6 +14,12 @@
 <body style="height: 650px">
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
+			<div class="container" style="height: 10%">
+				<button>+</button>
+				<select id="contact-list">
+				</select>
+			</div>
+			<hr>
 			<div class="container overflow-auto" style="height: 90%">
 				<ul id="contacts">
 					<li id="1" onclick="select_contact(this)">
@@ -142,5 +148,10 @@
 		catch(error){
 			alert(error.status);
 		}
+	}
+
+	function getContacts(){
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("GET",);
 	}
 </script>

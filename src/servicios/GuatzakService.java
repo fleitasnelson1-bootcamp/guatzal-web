@@ -3,6 +3,10 @@ package servicios;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+
 import dataBase.DAOdata;
 import util.Conector;
 import util.Mensaje;
@@ -48,5 +52,25 @@ public class GuatzakService {
 	
 	public ArrayList<User> getContactos(Conector co,int id_user){
 		return _data.getContactos(co, id_user);
+	}
+	
+	public JsonArray getSalasJson(Conector co, int id) throws SQLException {
+		try {
+			ArrayList<Sala> salas = _data.getSalas(co, id);
+			JsonArray salasJson = Json.createArrayBuilder().build();
+			salas.forEach(sala -> {
+				//Creo un json que quiero enviar. 
+				JsonObject salaJson = Json.createObjectBuilder()
+						.add("chat_id", sala.get_id())
+						.add("chat_name", sala.get_nombre())
+						.build();
+				//Cargo cada json creado en el array.
+				salasJson.add(salaJson);
+			});
+			return salasJson;
+		}
+		catch(SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
 	}
 }
