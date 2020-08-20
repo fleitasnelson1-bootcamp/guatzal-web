@@ -34,7 +34,7 @@ public class ChatServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try( Conector co = new Conector() ) {
-			//Obtengo el id del chat especificado.
+			//Obtengo el id del usuario especificado.
 			String userId = request.getParameter("user_id");
 			//Obtengo los chats pertenecientes al usuario actual.
 			JsonArray chats = gService.getSalasJson(co,Integer.parseInt(userId));
