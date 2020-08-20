@@ -55,7 +55,7 @@ public class GuatzakService {
 		return _data.getContactos(co, id_user);
 	}
 	
-	public JsonArray getSalasJson(Conector co, int id) throws SQLException {
+	public JsonArray getSalasJson(Conector co, int id) throws Exception {
 		try {
 			//Para crear un array de objetos json.
 			JsonArrayBuilder builder = Json.createArrayBuilder();
@@ -71,8 +71,27 @@ public class GuatzakService {
 			return builder.build();
 		}
 		catch(SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
 	}
 	
+	public JsonArray getMensajesJson(Conector co, int idSala) throws Exception {
+		try {
+			//Para crear un array de objetos json.
+			JsonArrayBuilder builder = Json.createArrayBuilder();
+			//Creo una lista de objetos json. Luego recorro y agrego cada uno al builder.
+			_data.getMensajes(co, idSala).stream()
+					.map((msg) -> Json.createObjectBuilder()
+							.add("date", msg.get_fecha().toString())
+							.add("message", msg.get_mensaje())
+							.add("username", msg.get_usuario())
+							.build())
+					.collect(Collectors.toList())
+					.forEach((msg) -> builder.add(msg));
+			
+			return builder.build();
+		}catch(Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 }
