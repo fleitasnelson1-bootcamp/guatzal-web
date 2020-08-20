@@ -31,7 +31,7 @@ public class DAOdata {
 					pstmt.setInt(2, sala);
 					pstmt.setString(3, mensaje);
 					pstmt.executeUpdate();
-					con.commit();
+					co.commit();
 				}
 			}
 			
@@ -135,7 +135,7 @@ public class DAOdata {
 					pstmt.setInt(1, tipo);
 					pstmt.setString(2, nombre);
 					pstmt.executeUpdate();
-					con.commit();
+					co.commit();
 					try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
 			            if (generatedKeys.next()) {
 			                return generatedKeys.getInt(1);
@@ -198,7 +198,7 @@ public class DAOdata {
 						pstmt.setInt(1, id_Sala);
 						pstmt.setInt(2, u.get_id());
 						pstmt.executeUpdate();
-						con.commit();
+						co.commit();
 					}
 				}
 			}
