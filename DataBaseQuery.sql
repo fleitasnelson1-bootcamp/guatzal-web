@@ -67,7 +67,7 @@ go
 
 exec get_salas 4431587
 
-create procedure get_mensajes
+alter procedure get_mensajes
 @sala int
 as
 	begin tran
@@ -76,6 +76,7 @@ as
 	join Usuario U
 	on U.Id_user = M.Id_user
 	where M.Id_sala = @sala
+	order by M.Fecha
 	If @@Error<>0 
 	BEGIN
 	PRINT 'Ha ecorrido un error'
