@@ -55,6 +55,11 @@ public class GuatzakService {
 		return _data.getContactos(co, id_user);
 	}
 	
+	/*
+	 * Estos metodos en vez de retornar listas retornan JsonArray.
+	 * https://javaee.github.io/javaee-spec/javadocs/javax/json/Json.html#createArrayBuilder-java.util.Collection- 
+	 */
+	
 	public JsonArray getSalasJson(Conector co, int id) throws Exception {
 		try {
 			//Para crear un array de objetos json.
@@ -88,6 +93,25 @@ public class GuatzakService {
 							.build())
 					.collect(Collectors.toList())
 					.forEach((msg) -> builder.add(msg));
+			
+			return builder.build();
+		}catch(Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public JsonArray getContactosJson(Conector co, int idUser) throws Exception {
+		try {
+			//Para crear un array de objetos json.
+			JsonArrayBuilder builder = Json.createArrayBuilder();
+			//Creo una lista de objetos json. Luego recorro y agrego cada uno al builder.
+			_data.getContactos(co, idUser).stream()
+					.map((contacto) -> Json.createObjectBuilder()
+							.add("id", contacto.get_id())
+							.add("name", contacto.get_nombre())
+							.build())
+					.collect(Collectors.toList())
+					.forEach((contacto) -> builder.add(contacto));
 			
 			return builder.build();
 		}catch(Exception e) {
