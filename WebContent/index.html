@@ -15,9 +15,14 @@
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
 			<div class="container" style="height: 10%">
-				<button>+</button>
-				<select id="contact-list">
-				</select>
+				<span>
+					<h5 id="username_title" name="William">William</h5>
+				</span>
+				<span>
+					<button>+</button>
+					<select id="contact-list">
+					</select>
+				</span>
 			</div>
 			<hr>
 			<div class="container overflow-auto" style="height: 90%">
@@ -29,10 +34,10 @@
 		<section class="col-md-9" style="height: 100%;">
 			<div style="height: 85%; background-color: yellow">
 				<div class="col-md-12" style="height: 5%">
-					<p class="chat_title"></p>
+					<p id="chat_title"></p>
 				</div>
 				<div class="container overflow-auto" style="height: 95%; background-color: white">
-					<ul class="inbox">
+					<ul class="inbox" id="inbox">
 						<li class="received">
 							<div>
 								<p>
@@ -122,7 +127,7 @@
 		
 		let tag = [];
 		arrayChats.forEach(function( chat ){
-			tag.push("<li id=\""+ chat.id +"\" onclick=\"selectChat(this)\">");
+			tag.push("<li id=\""+ chat.id +"\" name=\""+ chat.name +"\" onclick=\"selectChat(this)\">");
 				tag.push(chat.name);
 			tag.push("</li>");
 		});
@@ -149,7 +154,9 @@
 		
 		messages.forEach(function(msg){
 			let msgState = "received";
-			if( msg.username == username ){
+			console.log(msg.username);
+			console.log(username);
+			if( msg.username === username ){
 				msgState = "sent";
 			}
 			tag.push("<li class=\""+ msgState +"\">");
@@ -164,24 +171,28 @@
 			tag.push("</li>");
 		});
 			
-		document.getElementById('user_chat').innerHTML = tag.join(" ");
+		document.getElementById('inbox').innerHTML = tag.join(" ");
 	}
 
 	//Metodo para pedir via AJAX/GET los mensajes de un chat especifico al servidor.
+	//Llama a la funcion paintMessages() para pintar los mensajes luego de recibirlos.
 	function getMessages(chat_id){
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
-			//Segun ww3school y aquí se verifica si el pedido tuvo éxito.
+			//Segun ww3school y aquí se verifica si el pedido tuvo exito.
 			if(this.readyState == 4 && this.status == 200){
 				let response = this.responseText;
 				//Pinto los mensajes. Convierto a JSON la respuesta.
-				paintMessages(JSON.parse(response));
+				let username = document.getElementById('username_title').getAttribute("name");
+				paintMessages(JSON.parse(response),username);
 			}
 		}
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/message?chat_id="+chat_id,true);
+		xhttp.send();
 	}
 
-	function selectChat(chat){	
-		document.getElementById('chat_title').innerHTML= chat.name;
+	function selectChat(chat){
+		document.getElementById('chat_title').innerHTML= chat.getAttribute("name");
 		document.getElementById('chat_id').value = chat.id;
 		getMessages(chat.id);		
 	}
