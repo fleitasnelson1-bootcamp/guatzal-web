@@ -56,14 +56,19 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 5px;
-	display: block; resize: none;
+	display: block; 
+	
 }
 
-#contacts li{
+#chats li{
 	list-style: none;
 	margin: 0px;
 }
 
-#contacts li:hover {
+#chats li:hover {
 	background-color: yellow;
+}
+
+#cosa {
+	background-color: black;
 }

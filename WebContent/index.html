@@ -14,21 +14,30 @@
 <body style="height: 650px">
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
+			<div class="container" style="height: 10%">
+				<span>
+					<h5 id="username_title" name="William">William</h5>
+				</span>
+				<span>
+					<button>+</button>
+					<select id="contact-list">
+					</select>
+				</span>
+			</div>
+			<hr>
 			<div class="container overflow-auto" style="height: 90%">
-				<ul id="contacts">
-					<li id="1" onclick="select_contact(this)">
-						Usuario 1
-					</li>
+				<ul id="chats">
+					<li>asdf</li>
 				</ul>
 			</div>
 		</section>
 		<section class="col-md-9" style="height: 100%;">
 			<div style="height: 85%; background-color: yellow">
 				<div class="col-md-12" style="height: 5%">
-					<p id="user_chat"></p>
+					<p id="chat_title"></p>
 				</div>
 				<div class="container overflow-auto" style="height: 95%; background-color: white">
-					<ul class="inbox">
+					<ul class="inbox" id="inbox">
 						<li class="received">
 							<div>
 								<p>
@@ -98,32 +107,96 @@
 			</div>
 		</section>
 	</div>
+	<div>
+		<div><p id="cosa">cosa1</p></div>
+	</div>
+
+
 </body>
+
 </html>
 
 <script type="text/javascript">
-	function select_contact(elem){
-		document.getElementById('user_chat').innerHTML= elem.textContent;
-		document.getElementById('chat_id').value = elem.id;
+	
+	window.onload = () => {
+		getChats(1);
 	}
 
-	function paintSentMessage(message){
+	function paintChats(response){
+		let arrayChats = JSON.parse(response);
+		
+		let tag = [];
+		arrayChats.forEach(function( chat ){
+			tag.push("<li id=\""+ chat.id +"\" name=\""+ chat.name +"\" onclick=\"selectChat(this)\">");
+				tag.push(chat.name);
+			tag.push("</li>");
+		});
 
+		document.getElementById('chats').innerHTML = tag.join(" ");
+	}
+
+	function getChats(user_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			//Segun ww3school y aquí se verifica si el pedido tuvo éxito.
+			if (this.readyState == 4 && this.status == 200) {
+				let respone =  this.responseText;
+				paintChats(respone);
+			}
+		}
+		xhttp.open("GET",'http://localhost:8080/GuatzakWeb/chats?user_id=' + user_id, true);
+		xhttp.send();
+	}
+
+	//Pinta los mensajes de una lista a la seccion de mensajes.
+	function paintMessages(messages,username){
 		let tag = [];
 		
-		tag.push("<li class=\"sent\">");
-			tag.push("<div>");
-				tag.push("<p>");
-					tag.push("hora - fecha");
-				tag.push("</p>");
-				tag.push("<p>");
-					tag.push(message);
-				tag.push("</p>")
-			tag.push("</div>");
-		tag.push("</li>");
-
-		document.getElementById('user_chat').innerHTML = tag.join(" ");
+		messages.forEach(function(msg){
+			let msgState = "received";
+			console.log(msg.username);
+			console.log(username);
+			if( msg.username === username ){
+				msgState = "sent";
+			}
+			tag.push("<li class=\""+ msgState +"\">");
+				tag.push("<div>");
+					tag.push("<p>");
+						tag.push("hora - fecha");
+					tag.push("</p>");
+					tag.push("<p>");
+						tag.push(msg.message);
+					tag.push("</p>")
+				tag.push("</div>");
+			tag.push("</li>");
+		});
+			
+		document.getElementById('inbox').innerHTML = tag.join(" ");
 	}
+
+	//Metodo para pedir via AJAX/GET los mensajes de un chat especifico al servidor.
+	//Llama a la funcion paintMessages() para pintar los mensajes luego de recibirlos.
+	function getMessages(chat_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			//Segun ww3school y aquí se verifica si el pedido tuvo exito.
+			if(this.readyState == 4 && this.status == 200){
+				let response = this.responseText;
+				//Pinto los mensajes. Convierto a JSON la respuesta.
+				let username = document.getElementById('username_title').getAttribute("name");
+				paintMessages(JSON.parse(response),username);
+			}
+		}
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/message?chat_id="+chat_id,true);
+		xhttp.send();
+	}
+
+	function selectChat(chat){
+		document.getElementById('chat_title').innerHTML= chat.getAttribute("name");
+		document.getElementById('chat_id').value = chat.id;
+		getMessages(chat.id);		
+	}
+
 
 	async function sendMessage(form){
 		try{
