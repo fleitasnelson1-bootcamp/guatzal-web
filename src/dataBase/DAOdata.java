@@ -75,7 +75,7 @@ public class DAOdata {
 		return 0;
 	}
 	
-	public ArrayList<Sala> getSalas(Conector co,int id) throws SQLException{
+	public ArrayList<Sala> getSalas(Conector co,int id) throws Exception{
 		ArrayList<Sala> salas = new ArrayList<>();
 		try(Connection con = co.getConector()){
 			if(id > 0) {
@@ -89,13 +89,13 @@ public class DAOdata {
 				}
 			}
 			
-		}catch (SQLException e) {
-			throw new SQLException(e.getMessage());
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 		return salas;
 	}
 	
-	public ArrayList<Mensaje> getMensajes(Conector co, int sala){
+	public ArrayList<Mensaje> getMensajes(Conector co, int sala) throws Exception{
 		ArrayList<Mensaje> mensajes = new ArrayList<>();
 		try(Connection con = co.getConector()){
 			if(sala > 0) {
@@ -109,8 +109,8 @@ public class DAOdata {
 				}
 			}
 			
-		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 		return mensajes;
 	}

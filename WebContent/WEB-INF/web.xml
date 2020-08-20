@@ -33,7 +33,7 @@
 		<servlet-class>servlet.ChatServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ContactServlet</servlet-name>
+		<servlet-name>ChatServlet</servlet-name>
 		<url-pattern>/ChatServlet</url-pattern>
 	</servlet-mapping>
 	

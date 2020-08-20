@@ -33,13 +33,13 @@ public class GuatzakService {
 		return _data.getIdUser(co, user);
 	}
 	
-	public ArrayList<Sala> getSalas(Conector co, int id) throws SQLException{
+	public ArrayList<Sala> getSalas(Conector co, int id) throws Exception{
 		
 		return _data.getSalas(co, id);
 		
 	}
 	
-	public ArrayList<Mensaje> getMensajes(Conector co, int idSala){
+	public ArrayList<Mensaje> getMensajes(Conector co, int idSala) throws Exception{
 		
 		return _data.getMensajes(co, idSala);
 		
