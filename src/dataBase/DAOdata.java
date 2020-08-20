@@ -14,7 +14,14 @@ import util.Sala;
 import util.User;
 
 public class DAOdata {
-
+	/**
+	 * Envia el mensaje a la base de datos para ser guardado
+	 * @param co 
+	 * @param id
+	 * @param sala
+	 * @param mensaje
+	 * @throws SQLException
+	 */
 	public void enviar(Conector co,int id,int sala, String mensaje) throws SQLException{
 		try(Connection con = co.getConector()){
 			
@@ -33,6 +40,12 @@ public class DAOdata {
 		}
 	}
 	
+	/**
+	 * Devuelve el ID del usuario recibido
+	 * @param co
+	 * @param user
+	 * @return int
+	 */
 	public int getIdUser(Conector co,String user) {
 		try(Connection con = co.getConector()){
 			
@@ -54,27 +67,12 @@ public class DAOdata {
 		return 0;
 	}
 	
-	public int getIdSala(Conector co,String user) {
-		try(Connection con = co.getConector()){
-			
-			if(user!=null) {
-				try(PreparedStatement pstmt = con.prepareStatement("Select Id_user from Usuario where Nombre_user = ?")){
-					pstmt.setString(1, user);
-					pstmt.executeQuery();
-					try (ResultSet rs = pstmt.executeQuery()) {
-						if (rs.next()) {
-							return rs.getInt(1);
-						}
-					}
-				}
-			}
-			
-		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
-		}
-		return 0;
-	}
-	
+	/**
+	 * Devuelve una lista con las salas perteneciente al id del usuario
+	 * @param co
+	 * @param id
+	 * @return ArrayList<Sala>
+	 */
 	public ArrayList<Sala> getSalas(Conector co,int id){
 		ArrayList<Sala> salas = new ArrayList<>();
 		try(Connection con = co.getConector()){
@@ -95,6 +93,12 @@ public class DAOdata {
 		return salas;
 	}
 	
+	/**
+	 * Devuelve una lista con todos los mensajes pertenecientes a la id de la sala
+	 * @param co
+	 * @param sala
+	 * @return ArrayLits<Mensaje>
+	 */
 	public ArrayList<Mensaje> getMensajes(Conector co, int sala){
 		ArrayList<Mensaje> mensajes = new ArrayList<>();
 		try(Connection con = co.getConector()){
@@ -103,7 +107,7 @@ public class DAOdata {
 					pstmt.setInt(1, sala);
 					try (ResultSet rs = pstmt.executeQuery()) {
 						while (rs.next()) {
-							mensajes.add(new Mensaje(rs.getString(1),rs.getDate(2),rs.getString(3)));
+							mensajes.add(new Mensaje(rs.getString(1),rs.getDate(2),rs.getTime(2),rs.getString(3)));
 						}
 					}
 				}
@@ -115,6 +119,13 @@ public class DAOdata {
 		return mensajes;
 	}
 	
+	/**
+	 * Crea una sala nueva en la base de datos y devuelve la ip de la sala
+	 * @param co
+	 * @param tipo
+	 * @param nombre
+	 * @return
+	 */
 	public int agregarSala(Conector co,int tipo, String nombre) {
 		
 		try(Connection con = co.getConector()){
@@ -142,6 +153,12 @@ public class DAOdata {
 		return 0;
 	}
 	
+	/**
+	 * Devuelve una lista de todos los Usuarios en Guatzak
+	 * @param co
+	 * @param id_user
+	 * @return ArrayList<User>
+	 */
 	public ArrayList<User> getContactos(Conector co,int id_user){
 		ArrayList<User> contactos = new ArrayList<>();
 		try(Connection con = co.getConector()){
@@ -165,6 +182,12 @@ public class DAOdata {
 		return contactos;
 	}
 	
+	/**
+	 * Agrega a la sala los usuarios recibidos 
+	 * @param co
+	 * @param id_Sala
+	 * @param miembros
+	 */
 	public void agregarASala(Conector co,int id_Sala,ArrayList<User> miembros) {
 		
 		try(Connection con = co.getConector()){

@@ -1,17 +1,27 @@
 package util;
 
-import java.sql.Date;
+import java.sql.*;
 
 public class Mensaje {
 
 	private String _usuario;
 	private Date _fecha;
+	private Time _tiempo;
 	private String _mensaje;
 	
-	public Mensaje(String usuario, Date fecha, String mensaje) {
+	public Mensaje(String usuario, Date fecha,Time tiempo, String mensaje) {
 		set_usuario(usuario);
 		set_fecha(fecha);
 		set_mensaje(mensaje);
+		set_tiempo(tiempo);
+	}
+
+	public void set_tiempo(Time tiempo) {
+		_tiempo = tiempo;
+	}
+	
+	public Time get_tiempo() {
+		return _tiempo;
 	}
 
 	public String get_usuario() {

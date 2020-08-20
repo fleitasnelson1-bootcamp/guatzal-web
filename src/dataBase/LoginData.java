@@ -15,7 +15,8 @@ public class LoginData {
 					pstmt.setString(1, nick);
 					pstmt.setString(2, password);
 					pstmt.setString(3, salt);
-					pstmt.executeQuery();
+					pstmt.executeUpdate();
+					con.commit();
 				}
 			}
 			

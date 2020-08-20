@@ -2,18 +2,22 @@ package test;
 
 import java.sql.SQLException;
 
+import dataBase.LoginData;
 import servicios.GuatzakService;
+import servicios.LoginService;
 import util.Conector;
+import util.Mensaje;
 
 public class Testeo {
 
 	public static void main(String[] args) throws SQLException {
 		
-		GuatzakService gs = new GuatzakService();
+		LoginService ls = new LoginService();
 		Conector co = Conector.newInstance();
-		String mensaje = "test test testx2";
 		
-		gs.enviarMensaje(co, 1,19, mensaje);
+		ls.insertar(co, "Pepe", "1234");
+		ls.insertar(co, "Pepa", "1234");
+		ls.insertar(co, "Pepo", "1234");
 		
 	}
 	
