@@ -21,10 +21,8 @@
 			</div>
 			<hr>
 			<div class="container overflow-auto" style="height: 90%">
-				<ul id="contacts">
-					<li id="1" onclick="select_contact(this)">
-						Usuario 1
-					</li>
+				<ul id="chats">
+					<li>asdf</li>
 				</ul>
 			</div>
 		</section>
@@ -104,30 +102,60 @@
 			</div>
 		</section>
 	</div>
+	<div>
+		<div><p id="cosa">cosa1</p></div>
+	</div>
+
+
 </body>
+
 </html>
 
 <script type="text/javascript">
+	
+	window.onload = () => {
+		getChats(1);
+	}
+
 	function select_contact(elem){
 		document.getElementById('user_chat').innerHTML= elem.textContent;
 		document.getElementById('chat_id').value = elem.id;
 	}
 
-	function paintSentMessage(message){
+	function paintChats(response){
+		let arrayChats = JSON.parse(response);
+		
+		let tag = [];
+		arrayChats.forEach(function( chat ){
+			tag.push("<li id=\""+ chat.id +"\" onclick=\"select_contact(this)\">");
+				tag.push(chat.name);
+			tag.push("</li>");
+		});
+
+		document.getElementById('chats').innerHTML = tag.join(" ");
+	}
+
+	function paintSentMessages(messages,username){
 
 		let tag = [];
 		
-		tag.push("<li class=\"sent\">");
-			tag.push("<div>");
-				tag.push("<p>");
-					tag.push("hora - fecha");
-				tag.push("</p>");
-				tag.push("<p>");
-					tag.push(message);
-				tag.push("</p>")
-			tag.push("</div>");
-		tag.push("</li>");
-
+		messages.forEach(function(msg){
+			let msgState = "received";
+			if( msg.username == username ){
+				msgState = "sent";
+			}
+			tag.push("<li class=\""+ msgState +"\">");
+				tag.push("<div>");
+					tag.push("<p>");
+						tag.push("hora - fecha");
+					tag.push("</p>");
+					tag.push("<p>");
+						tag.push(msg.message);
+					tag.push("</p>")
+				tag.push("</div>");
+			tag.push("</li>");
+		});
+			
 		document.getElementById('user_chat').innerHTML = tag.join(" ");
 	}
 
@@ -150,8 +178,15 @@
 		}
 	}
 
-	function getContacts(){
+	function getChats(user_id){
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("GET",);
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				respone =  this.responseText;
+				paintChats(respone);
+			}
+		}
+		xhttp.open("GET",'http://localhost:8080/GuatzakWeb/chats?user_id=' + user_id, true);
+		xhttp.send();
 	}
 </script>
