@@ -8,14 +8,14 @@
 </head>
 <body>
 	<div>
-		<form method="POST" action="#" id="login-form" onsubmit="sendData()">
+		<form method="POST" id="login-form" onsubmit="sendData()">
 			<h4>Login</h4>
 			<label for="username">User</label>
 			<input type="text" name="username" required="text" id="username">
 			<label for="password">Password</label>
 			<input type="password" name="password" required="text" id="password">
 			<br>
-			<button class="button primary-button" type="submit" >Access</button>
+			<button class="button primary-button" >Access</button>
 		</form>
 	</div>
 </body>
@@ -32,14 +32,12 @@
 	//Url del servlet login
 	let url = 'http://localhost:8080/GuatzakWeb/login';
 	
-	async function sendData(){
+	function sendData(){
 		//Obtengo la referencia al formulario del login.
 		let formData = new FormData( document.getElementById('login-form'));
-
-		let response = await fetch(url, {
-			method: 'POST',
-			body: formData
-		});
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("POST",url, true);
+		xhttp.send(formData);
 		
 	}
 </script>

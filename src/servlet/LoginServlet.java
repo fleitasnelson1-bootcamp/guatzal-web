@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 	private final LoginService _loginservice= new LoginService();
 	private final GuatzakService _guatzakService = new GuatzakService();
     private final String USER_ID = "user_id";    
-    private final String inboxUrl = "inbox.html";
+    private final String inboxUrl = "/inbox.html";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,17 +43,18 @@ public class LoginServlet extends HttpServlet {
 			String userName = request.getParameter("username");
 			//Si se verifican correctamente el usuario y contraseña se redirecciona a la pagina de chat.
 			if(_loginservice.verify(co,request.getParameter("username") ,request.getParameter("password"))) {
+				System.out.println("verificado");
 				response.setContentType("text/html");
 				request.getSession(true).setAttribute(USER_ID, _guatzakService.getId(co,request.getParameter(userName)));
-				RequestDispatcher rd = request.getRequestDispatcher("s");
-				rd.hashCode();
+				RequestDispatcher rd = request.getRequestDispatcher("/welcome");
+				rd.forward(request, response);
 			}else {
 				response.getWriter().print("Usuario o contraseña incorrectas");
 				System.out.println("Incorrecto");
 			}
 			
 		} catch (Exception e) {
-			System.out.print("error");
+			e.printStackTrace();
 		}
 		
 	}

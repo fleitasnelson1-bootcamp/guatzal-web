@@ -37,7 +37,16 @@
 		<url-pattern>/ChatServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>WelcomeServlet</servlet-name>
+		<servlet-class>servlet.WelcomeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WelcomeServlet</servlet-name>
+		<url-pattern>/WelcomeServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>/index.html</welcome-file>
 	</welcome-file-list>
 </web-app>
