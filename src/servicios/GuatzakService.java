@@ -83,4 +83,22 @@ public class GuatzakService {
 	public ArrayList<User> getContactos(Conector co,int id_user){
 		return _data.getContactos(co, id_user);
 	}
+	
+	/**
+	 * Devuelve true si los usuarios tienen salas en comun
+	 * @param co
+	 * @param id_usuario
+	 * @param id_contacto
+	 * @return boolean
+	 */
+	public boolean salasEnComun(Conector co, int id_usuario, int id_contacto) {
+		ArrayList<Sala> salasUsuario = new ArrayList<>();
+		ArrayList<Sala> salasContacto = new ArrayList<>();
+		for(Sala s: salasUsuario) {
+			for(Sala s2: salasContacto) {
+				if(s.get_id()==s2.get_id())return true;
+			}
+		}
+		return false;
+	}
 }
