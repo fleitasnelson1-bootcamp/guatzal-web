@@ -87,8 +87,8 @@ public class DAOdata {
 				}
 			}
 			
-		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 		return salas;
 	}
@@ -113,8 +113,8 @@ public class DAOdata {
 				}
 			}
 			
-		}catch (SQLException e) {
-			throw new Error("Error al iniciar el servidor");
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 		return mensajes;
 	}
