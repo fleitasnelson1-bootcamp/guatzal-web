@@ -39,6 +39,7 @@ public class ChatServlet extends HttpServlet {
 			//Obtengo los chats pertenecientes al usuario actual.
 			JsonArray chats = gService.getSalasJson(co,Integer.parseInt(userId));
 			//Respondo con el arreglo de chats en json.
+			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().append(chats.toString());
 		}catch(Exception e){
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
