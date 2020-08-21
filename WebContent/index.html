@@ -15,14 +15,11 @@
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
 			<div class="container" style="height: 10%">
-				<span>
-					<h5 id="username_title" name="William" value="1">William</h5>
-				</span>
-				<span>
-					<button>Actualizar</button>
-					<select id="contact-list">
-					</select>
-				</span>
+				<h6 id="username_title" name="William" value="1">William</h6>
+				<div>
+					<span><button>Actualizar</button></span>
+					<span><select id="contact-list"></select></span>
+				</div>
 			</div>
 			<hr>
 			<div class="container overflow-auto" style="height: 90%">
@@ -115,6 +112,7 @@
 	
 	window.onload = () => {
 		getChats(1);
+		getContacts(1);
 	}
 
 	function paintChats(response){
@@ -149,8 +147,7 @@
 		
 		messages.forEach(function(msg){
 			let msgState = "received";
-			console.log(msg.username);
-			console.log(username);
+	
 			if( msg.username === username ){
 				msgState = "sent";
 			}
@@ -212,10 +209,10 @@
 				let response = this.responseText;
 				//Pinto los contactos en el selector. Convierto a JSON la respuesta.
 				let userId = document.getElementById('username_title').getAttribute("value");
-				paintMessages(JSON.parse(response));
+				paintContacts(JSON.parse(response));
 			}
 		}
-		xhttp.open("GET","http://localhost:8080/GuatzakWeb/contacts?=user_id" + user_id,true);
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/contacts?user_id=" + user_id,true);
 		xhttp.send();
 	}
 

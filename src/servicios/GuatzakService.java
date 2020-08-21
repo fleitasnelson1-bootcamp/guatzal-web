@@ -52,8 +52,9 @@ public class GuatzakService {
 	 * @param co
 	 * @param id
 	 * @return Sala
+	 * @throws Exception 
 	 */
-	public ArrayList<Sala> getSalas(Conector co, int id){
+	public ArrayList<Sala> getSalas(Conector co, int id) throws Exception{
 		return _data.getSalas(co, id);
 	}
 	
@@ -62,8 +63,9 @@ public class GuatzakService {
 	 * @param co
 	 * @param idSala
 	 * @return Mensaje
+	 * @throws Exception 
 	 */
-	public ArrayList<Mensaje> getMensajes(Conector co, int idSala){		
+	public ArrayList<Mensaje> getMensajes(Conector co, int idSala) throws Exception{		
 		return _data.getMensajes(co, idSala);		
 	}
 	
@@ -109,7 +111,7 @@ public class GuatzakService {
 			
 			return builder.build();
 		}
-		catch(SQLException e) {
+		catch(Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
