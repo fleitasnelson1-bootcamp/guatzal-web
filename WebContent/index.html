@@ -15,19 +15,16 @@
 	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
 		<section class="col-md-3" style="height: 100%; background-color: aqua">
 			<div class="container" style="height: 10%">
-				<span>
-					<h5 id="username_title" name="William">William</h5>
-				</span>
-				<span>
-					<button>+</button>
-					<select id="contact-list">
-					</select>
-				</span>
+				<h6 id="username_title" name="William" value="1">William</h6>
+				<div>
+					<span><button>Actualizar</button></span>
+					<span><select id="contact-list"></select></span>
+				</div>
 			</div>
 			<hr>
 			<div class="container overflow-auto" style="height: 90%">
 				<ul id="chats">
-					<li>asdf</li>
+					
 				</ul>
 			</div>
 		</section>
@@ -107,11 +104,6 @@
 			</div>
 		</section>
 	</div>
-	<div>
-		<div><p id="cosa">cosa1</p></div>
-	</div>
-
-
 </body>
 
 </html>
@@ -120,6 +112,7 @@
 	
 	window.onload = () => {
 		getChats(1);
+		getContacts(1);
 	}
 
 	function paintChats(response){
@@ -154,8 +147,7 @@
 		
 		messages.forEach(function(msg){
 			let msgState = "received";
-			console.log(msg.username);
-			console.log(username);
+	
 			if( msg.username === username ){
 				msgState = "sent";
 			}
@@ -193,10 +185,36 @@
 
 	function selectChat(chat){
 		document.getElementById('chat_title').innerHTML= chat.getAttribute("name");
-		document.getElementById('chat_id').value = chat.id;
+		document.getElementById('chat_id').setAttribute("value",chat.id);
 		getMessages(chat.id);		
 	}
 
+	function paintContacts(contacts){
+		let options = [];
+
+		contacts.forEach(function( contact ){
+			options.push("<option value=\""+ contact.id +"\">");
+				options.push(contact.name);
+			options.push("</option>");
+		});
+
+		document.getElementById('contact-list').innerHTML= options.join(" ");
+	}
+
+	function getContacts(user_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			//Segun ww3school y aquí se verifica si el pedido tuvo exito.
+			if(this.readyState == 4 && this.status == 200){
+				let response = this.responseText;
+				//Pinto los contactos en el selector. Convierto a JSON la respuesta.
+				let userId = document.getElementById('username_title').getAttribute("value");
+				paintContacts(JSON.parse(response));
+			}
+		}
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/contacts?user_id=" + user_id,true);
+		xhttp.send();
+	}
 
 	async function sendMessage(form){
 		try{
