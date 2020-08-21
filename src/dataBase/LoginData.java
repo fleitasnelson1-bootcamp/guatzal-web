@@ -6,6 +6,14 @@ import util.Conector;
 
 public class LoginData {
 	//inspirado en el video 52
+	
+	/**
+	 * Realiza un insert en la tabla de Usuario
+	 * @param co
+	 * @param nick
+	 * @param password
+	 * @param salt
+	 */
 	public void insert(Conector co, String nick, String password, String salt) {
 		
 		try(Connection con = co.getConector()){
@@ -15,7 +23,8 @@ public class LoginData {
 					pstmt.setString(1, nick);
 					pstmt.setString(2, password);
 					pstmt.setString(3, salt);
-					pstmt.executeQuery();
+					pstmt.executeUpdate();
+					co.commit();
 				}
 			}
 			
@@ -25,6 +34,12 @@ public class LoginData {
 		
 	}
 	
+	/**
+	 * Devuelve un array con La contraseña y la Salt del usuario en cuestion
+	 * @param co
+	 * @param nick
+	 * @return String[]
+	 */
 	public String[] selectUser(Conector co, String nick) {
 		String[] password= {null,null};
 		try(Connection con = co.getConector()){

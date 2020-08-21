@@ -9,6 +9,12 @@ public class LoginService {
 
 	private final LoginData _login = new LoginData();
 	
+	/**
+	 * Encripta la contraseña recibida y ejecuta el comando para agregar el nuevo usuario a la base de datos
+	 * @param co
+	 * @param nombre
+	 * @param contraseña
+	 */
 	public void insertar(Conector co,String nombre, String contraseña) {
 		try {
 			
@@ -24,6 +30,13 @@ public class LoginService {
 		
 	}
 	
+	/**
+	 * Verifica que el usuario y la contraseña sean los correctos
+	 * @param co
+	 * @param nombre
+	 * @param contraseña
+	 * @return
+	 */
 	public boolean verify(Conector co, String nombre, String contraseña) {
 		String[] pass = _login.selectUser(co, nombre);
 		

@@ -12,6 +12,12 @@ public class GuatzakDB {
 		} 
 	}
 	
+	/**
+	 * Inicia la conexion con la base de datos y devuelve el Connection
+	 * @param autoCommit
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	public static Connection conexion(boolean autoCommit) throws SQLException {
 			//Prueba de connexion
             // esta es la configuracion de la conexion a SQL Server
