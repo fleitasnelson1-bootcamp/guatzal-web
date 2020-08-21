@@ -89,6 +89,24 @@ public class GuatzakService {
 		return _data.getContactos(co, id_user);
 	}
 	
+	/**
+	 * Devuelve true si los usuarios tienen salas en comun
+	 * @param co
+	 * @param id_usuario
+	 * @param id_contacto
+	 * @return boolean
+	 */
+	public boolean salasEnComun(Conector co, int id_usuario, int id_contacto) {
+		ArrayList<Sala> salasUsuario = new ArrayList<>();
+		ArrayList<Sala> salasContacto = new ArrayList<>();
+		for(Sala s: salasUsuario) {
+			for(Sala s2: salasContacto) {
+				if(s.get_id()==s2.get_id())return true;
+			}
+		}
+		return false;
+	}
+
 	/*
 	 * Estos metodos en vez de retornar listas retornan JsonArray.
 	 * https://javaee.github.io/javaee-spec/javadocs/javax/json/Json.html#createArrayBuilder-java.util.Collection- 
@@ -151,5 +169,6 @@ public class GuatzakService {
 		}catch(Exception e) {
 			throw new Exception(e.getMessage());
 		}
+
 	}
 }
