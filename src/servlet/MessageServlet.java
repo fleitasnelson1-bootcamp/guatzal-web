@@ -54,10 +54,11 @@ public class MessageServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		final String MSG_PARAM = "message";
 		final String UID_PARAM = "user_id";
+		final String CHATID_PARAM = "chat_id";
 		
 		try( Conector co = Conector.newInstance() ){
 			int userId = Integer.parseInt(request.getParameter(UID_PARAM));
-			int chatId = 19;//Integer.parseInt(request.getParameter(CHATID_PARAM));
+			int chatId = Integer.parseInt(request.getParameter(CHATID_PARAM));
 			String message = request.getParameter(MSG_PARAM);
 			gService.enviarMensaje(co, userId,chatId, message);
 			//Si tuvo exito. Envio un status confirmando que se creo un recurso.

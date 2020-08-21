@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/inbox.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<title>Guatzak Inbox</title>
+</head>
+<body style="height: 650px">
+	<div class="row main" style="height: 100%; padding: 5px; background-color: grey">
+		<section class="col-md-3" style="height: 100%; background-color: aqua">
+			<div class="container" style="height: 10%">
+				<h6 id="username_title" name="William" value="1">William</h6>
+				<div>
+					<span><button>Actualizar</button></span>
+					<span><select id="contact-list"></select></span>
+				</div>
+			</div>
+			<hr>
+			<div class="container overflow-auto" style="height: 90%">
+				<ul id="chats">
+					
+				</ul>
+			</div>
+		</section>
+		<section class="col-md-9" style="height: 100%;">
+			<div style="height: 85%; background-color: yellow">
+				<div class="col-md-12" style="height: 5%">
+					<p id="chat_title"></p>
+				</div>
+				<div class="container overflow-auto" style="height: 95%; background-color: white">
+					<ul class="inbox" id="inbox">
+						
+					</ul>
+				</div>
+			</div>
+			<div style="height: 15%;">
+				<form class="message-form" method="POST" action="#" onsubmit="sendMessage(this)">
+					<span class="col-11" style="height: 70%">
+						<textarea name="message" placeholder="Mensaje..."></textarea>
+						<input type="text" name="chat_id" hidden id="chat_id">
+						<input type="text" name="user_id" hidden value="1">
+					</span>
+					<span class="col-1">
+						<button type="submit">Enviar</button>
+					</span>
+				</form>
+			</div>
+		</section>
+	</div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+	
+	window.onload = () => {
+		getChats(1);
+		getContacts(1);
+	}
+
+	function paintChats(response){
+		let arrayChats = JSON.parse(response);
+		
+		let tag = [];
+		arrayChats.forEach(function( chat ){
+			tag.push("<li id=\""+ chat.id +"\" name=\""+ chat.name +"\" onclick=\"selectChat(this)\">");
+				tag.push(chat.name);
+			tag.push("</li>");
+		});
+
+		document.getElementById('chats').innerHTML = tag.join(" ");
+	}
+
+	function getChats(user_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			//Segun ww3school y aquí se verifica si el pedido tuvo éxito.
+			if (this.readyState == 4 && this.status == 200) {
+				let respone =  this.responseText;
+				paintChats(respone);
+			}
+		}
+		xhttp.open("GET",'http://localhost:8080/GuatzakWeb/chats?user_id=' + user_id, true);
+		xhttp.send();
+	}
+
+	//Pinta los mensajes de una lista a la seccion de mensajes.
+	function paintMessages(messages,username){
+		let tag = [];
+		
+		messages.forEach(function(msg){
+			let msgState = "received";
+	
+			if( msg.username === username ){
+				msgState = "sent";
+			}
+			tag.push("<li class=\""+ msgState +"\">");
+				tag.push("<div>");
+					tag.push("<p>");
+						tag.push("hora - fecha");
+					tag.push("</p>");
+					tag.push("<p>");
+						tag.push(msg.message);
+					tag.push("</p>")
+				tag.push("</div>");
+			tag.push("</li>");
+		});
+			
+		document.getElementById('inbox').innerHTML = tag.join(" ");
+	}
+
+	//Metodo para pedir via AJAX/GET los mensajes de un chat especifico al servidor.
+	//Llama a la funcion paintMessages() para pintar los mensajes luego de recibirlos.
+	function getMessages(chat_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			//Segun ww3school y aquí se verifica si el pedido tuvo exito.
+			if(this.readyState == 4 && this.status == 200){
+				let response = this.responseText;
+				//Pinto los mensajes. Convierto a JSON la respuesta.
+				let username = document.getElementById('username_title').getAttribute("name");
+				paintMessages(JSON.parse(response),username);
+			}
+		}
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/message?chat_id="+chat_id,true);
+		xhttp.send();
+	}
+
+	function selectChat(chat){
+		document.getElementById('chat_title').innerHTML= chat.getAttribute("name");
+		document.getElementById('chat_id').setAttribute("value",chat.id);
+		getMessages(chat.id);		
+	}
+
+	function paintContacts(contacts){
+		let options = [];
+
+		contacts.forEach(function( contact ){
+			options.push("<option value=\""+ contact.id +"\">");
+				options.push(contact.name);
+			options.push("</option>");
+		});
+
+		document.getElementById('contact-list').innerHTML= options.join(" ");
+	}
+
+	function getContacts(user_id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			//Segun ww3school y aquí se verifica si el pedido tuvo exito.
+			if(this.readyState == 4 && this.status == 200){
+				let response = this.responseText;
+				//Pinto los contactos en el selector. Convierto a JSON la respuesta.
+				let userId = document.getElementById('username_title').getAttribute("value");
+				paintContacts(JSON.parse(response));
+			}
+		}
+		xhttp.open("GET","http://localhost:8080/GuatzakWeb/contacts?user_id=" + user_id,true);
+		xhttp.send();
+	}
+
+	async function sendMessage(form){
+		try{
+			let url = 'http://localhost:8080/GuatzakWeb/message';
+
+			let formData = new FormData(form);
+
+			let response = await fetch(url, {
+				method: 'POST',
+				body: formData
+			});
+
+			let msg = await response.status;
+			alert(msg);
+		}
+		catch(error){
+			alert(error.status);
+		}
+	}
+</script>

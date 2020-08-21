@@ -15,7 +15,7 @@ import util.Conector;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserServlet")
+@WebServlet("/contacts")
 public class ContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
