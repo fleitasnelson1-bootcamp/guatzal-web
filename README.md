@@ -1,5 +1,10 @@
 # guatzal-web
-sonarlint
+#Miembros
+Group 3
+-William Yang
+-Javier Rios Selent
+-Nelson Fleitas
+#sonarlint
 Resource	Date	Description
 Conector.java	null	Rename this field "_connection" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.
 DAOdata.java	2 days ago	Remove this unused import 'java.sql.Date'.
